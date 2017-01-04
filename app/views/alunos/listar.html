@@ -1,0 +1,36 @@
+<h1>Listagem de Técnicos</h1>
+
+<div class="alert alert-danger" role="alert" *ngIf="msgErro">
+    {{ msgErro }}
+</div>
+
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th class="text-right">
+                <a class="btn btn-success" [routerLink]="['/aluno-cadastrar']">
+                    Cadastrar
+                </a>
+            </th>
+        </tr>
+        <tr *ngFor="let aluno of alunos let id = index">
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.email }}</td>
+            <td>
+                <a class="btn btn-warning" [routerLink]="['/aluno-visualizar/'+aluno.id]">
+                    Visualizar
+                </a>
+                <a class="btn btn-info" [routerLink]="['/aluno-editar/'+aluno.id]">
+                    Editar
+                </a>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" (click)="excluir(aluno.id)">
+                    Excluir
+                </button>
+            </td>
+        </tr>
+    </table>
+    <modal-util [id]="'modalExcluir'" [titulo]="'Excluir Aluno'" [descricao]="'Deseja realmente excluir o aluno selecionado?'" (onConfirm)="onExcluir($event)">
+    </modal-util>
+</div>
